@@ -3,6 +3,11 @@
 # Matcha-GNN
 
 from .training import Trainer
+from .gnns import *
+from .datasets import *
+from .loaders import *
+from .evaluators import *
+from .lms import *
 
 __author__      = "Laura Balbi"
 
