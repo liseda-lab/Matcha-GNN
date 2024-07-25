@@ -18,11 +18,12 @@ class Trainer:
         self.losses = []
 
 
-    def train(self, graph, features, labels, epochs = 100):
+    def train(self, graph, features, labels, epochs):
         """
         Train the model.
         """
         for epoch in range(epochs):
+
             self.model.train()
             self.optimizer.zero_grad()
             output = self.model(graph, features)
@@ -53,7 +54,8 @@ class GridSearchCV:
     """
     Grid search for hyperparameter tuning.
     """
-    def __init__(self, model, optimizer, lr_scheduler, loss_fn, early_stopper = earlystopper.EarlyStopper()):
+    def __init__(self, model, optimizer, lr_scheduler, loss_fn, epochs = 100, early_stopper = earlystopper.EarlyStopper()):
+
         self.model = model
         self.optimizer = optimizer
         self.lr_scheduler = lr_scheduler
@@ -62,6 +64,7 @@ class GridSearchCV:
         self.logger = Logger
         self.logger.start_log()
         self.evaluator = Evaluator
+        self.epochs = epochs
 
 
 
@@ -71,12 +74,13 @@ class GridSearchCV:
         """
         best_loss = float("inf")
         best_params = None
+
         for param in params:
             model = self.model(**param)
             optimizer = self.optimizer(model.parameters())
             lr_scheduler = self.lr_scheduler(optimizer)
             trainer = Trainer(model, optimizer, lr_scheduler, self.loss_fn, self.early_stopper)
-            loss = trainer.train(graph, features, labels)
+            loss = trainer.train(graph, features, labels, self.epochs)
 
             if loss < best_loss:
                 best_loss = loss
@@ -88,10 +92,12 @@ class GridSearchCV:
         """
         Predict the output with the best hyperparameters.
         """
+        ## fitting the model to get the best hyperparameters
         best_params, best_loss = self.fit(graph, features, labels, params)
         model = self.model(**best_params)
         optimizer = self.optimizer(model.parameters())
         lr_scheduler = self.lr_scheduler(optimizer)
+        ## define new trainer with the best hyperparameters and test the model
         trainer = Trainer(model, optimizer, lr_scheduler, self.loss_fn, self.early_stopper)
         loss, output = trainer.test(graph, features, labels)
         results = self.evaluator.evaluate(output, labels)
