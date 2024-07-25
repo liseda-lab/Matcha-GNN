@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Matcha-GNN
 
-from .training import Trainer
+from .training import Trainer, GridSearchCV
 from .gnns import *
 from .datasets import *
 from .loaders import *
