@@ -54,6 +54,7 @@ class GridSearchCV:
     """
     Grid search for hyperparameter tuning.
     """
+    
     def __init__(self, model, optimizer, lr_scheduler, loss_fn, epochs = 100, early_stopper = earlystopper.EarlyStopper()):
 
         self.model = model
@@ -88,6 +89,7 @@ class GridSearchCV:
         return best_params, best_loss
     
     
+
     def predict(self, run, graph, features, labels, params):
         """
         Predict the output with the best hyperparameters.
