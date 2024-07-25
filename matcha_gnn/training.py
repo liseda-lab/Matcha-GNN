@@ -1,5 +1,6 @@
 import torch
-from .gnns import models, earlystopper
+from .gnns import earlystopper
+from .evaluators import Logger, Evaluator
 
 class Trainer:
     """
@@ -33,6 +34,7 @@ class Trainer:
                 break
             self.lr_scheduler.step()
             self.losses.append(loss.item())
+            
         return loss
 
     def test(self, graph, features, labels):
@@ -43,8 +45,10 @@ class Trainer:
         with torch.no_grad():
             output = self.model(graph, features)
             loss = self.loss_fn(output, labels)
+
             return loss, output
-    
+
+
 class GridSearchCV:
     """
     Grid search for hyperparameter tuning.
@@ -55,6 +59,11 @@ class GridSearchCV:
         self.lr_scheduler = lr_scheduler
         self.loss_fn = loss_fn
         self.early_stopper = early_stopper
+        self.logger = Logger
+        self.logger.start_log()
+        self.evaluator = Evaluator
+
+
 
     def fit(self, graph, features, labels, params):
         """
@@ -68,10 +77,12 @@ class GridSearchCV:
             lr_scheduler = self.lr_scheduler(optimizer)
             trainer = Trainer(model, optimizer, lr_scheduler, self.loss_fn, self.early_stopper)
             loss = trainer.train(graph, features, labels)
+
             if loss < best_loss:
                 best_loss = loss
                 best_params = param
         return best_params, best_loss
+    
     
     def predict(self, graph, features, labels, params):
         """
@@ -83,4 +94,6 @@ class GridSearchCV:
         lr_scheduler = self.lr_scheduler(optimizer)
         trainer = Trainer(model, optimizer, lr_scheduler, self.loss_fn, self.early_stopper)
         loss, output = trainer.test(graph, features, labels)
-        return loss, output
+        results = self.evaluator.evaluate(output, labels)
+        self.logger.log( + results)
+        return loss, results
