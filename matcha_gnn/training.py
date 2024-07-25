@@ -101,5 +101,5 @@ class GridSearchCV:
         trainer = Trainer(model, optimizer, lr_scheduler, self.loss_fn, self.early_stopper)
         loss, output = trainer.test(graph, features, labels)
         results = self.evaluator.evaluate(output, labels)
-        self.logger.log("Test" + run + results)
+        self.logger.log(str(run) + "\t" + "Test" +"\t" + results)
         return loss, results
