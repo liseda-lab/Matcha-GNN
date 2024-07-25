@@ -89,7 +89,6 @@ class GridSearchCV:
         return best_params, best_loss
     
     
-
     def predict(self, run, graph, labels, params):
         """
         Predict the output with the best hyperparameters.

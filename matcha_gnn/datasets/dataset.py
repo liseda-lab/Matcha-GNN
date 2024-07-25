@@ -2,7 +2,7 @@ import torch, dgl
 import java
 from .entity import Entity
 from .relation import Relation
-from .projection import Projection
+from .owl2vec import Projection
 
 
 
@@ -59,8 +59,6 @@ class Dataset:
         self.edge_features = graph_dict["edge features"]
 
 
-
-
 class DGLDataset(Dataset):
     def __init__(self, source_ontology, target_ontology,
                  name= "dataset", 
@@ -115,8 +113,7 @@ class DGLDataset(Dataset):
             self.graph.add_edges(rel.get_id())
 
 
-
-
+#########
     def process_projections(self): ## TO DO
         """
             Joins the source and target projections into a single graph-ready input for DGL
@@ -190,36 +187,4 @@ class DGLDataset(Dataset):
             self.graph.add_edges(edges)
             for attr in edge_attributes.keys(): self.graph.edata[attr] = node_attributes[attr]
             for attr in node_attributes.keys(): self.graph.ndata[attr] = node_attributes[attr]
-
-    def rand_split(self, train_ratio = 0.75, val_ratio = 0.1, test_ratio = 0.15):
-        """
-            Randomly splits the dataset into training, validation and test sets
-            Args:
-                train_ratio: ratio of training samples
-                val_ratio: ratio of validation samples
-                test_ratio: ratio of test samples
-            Returns: 
-                splits: tuple of training, validation and test indices
-        """
-
-        self.train_idx, self.val_idx, self.test_idx = dgl.data.split_dataset(self.graph, 
-                                                                             train_ratio, val_ratio, test_ratio)
-        self.splits = (self.train_idx, self.val_idx, self.test_idx)
-        return self.splits
-    
-    def split_by_idx(self, train_idx, val_idx, test_idx):
-        """
-            Splits the dataset into training, validation and test sets based on given indices
-            Args:
-                train_idx: list of training indices
-                val_idx: list of validation indices
-                test_idx: list of test indices
-            Returns:
-                splits: tuple of training, validation and test indices
-        """
-        self.train_idx = train_idx
-        self.val_idx = val_idx
-        self.test_idx = test_idx
-        self.splits = (self.train_idx, self.val_idx, self.test_idx)
-        return self.splits
     
