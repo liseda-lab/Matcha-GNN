@@ -78,7 +78,6 @@ class DGLDataset(Dataset):
         self.val_idx = None
         self.test_idx = None
 
-
     def load_ontologies(self, source_ontology, target_ontology):
         """
             Loads the source and target ontologies from files and onto JAVA processable OWL format
@@ -96,18 +95,15 @@ class DGLDataset(Dataset):
         _target = owl_manager.loadOntologyFromOntologyDocument(java.io.File(self.dir + target_ontology))
         return _source, _target
             
-
     def add_entities(self, entities_list):
         """
             Adds entities to the graph
             Args:   entities_list: list of tuples of entities
         """
-
         for entity in entities_list:
             ent = Entity(entity[0], entity[1])
             self.graph.add_nodes(ent.get_id())
 
-    
     def add_relations(self, relations_list):
         """
             Adds relations to the graph
@@ -119,7 +115,9 @@ class DGLDataset(Dataset):
             self.graph.add_edges(rel.get_id())
 
 
-    def process_projections(self):
+
+
+    def process_projections(self): ## TO DO
         """
             Joins the source and target projections into a single graph-ready input for DGL
 
@@ -151,6 +149,7 @@ class DGLDataset(Dataset):
             edge_attributes[relation.get_id()] = relation.get_attributes()
 
         return nodes, edges, edge_types, edge_attributes, node_attributes
+
 
 
     def make_dgl_graph(self, node_features = None, edge_features = None):
@@ -192,7 +191,6 @@ class DGLDataset(Dataset):
             for attr in edge_attributes.keys(): self.graph.edata[attr] = node_attributes[attr]
             for attr in node_attributes.keys(): self.graph.ndata[attr] = node_attributes[attr]
 
-
     def rand_split(self, train_ratio = 0.75, val_ratio = 0.1, test_ratio = 0.15):
         """
             Randomly splits the dataset into training, validation and test sets
@@ -209,7 +207,6 @@ class DGLDataset(Dataset):
         self.splits = (self.train_idx, self.val_idx, self.test_idx)
         return self.splits
     
-
     def split_by_idx(self, train_idx, val_idx, test_idx):
         """
             Splits the dataset into training, validation and test sets based on given indices
