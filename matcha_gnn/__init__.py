@@ -8,6 +8,8 @@ from .datasets import *
 from .loaders import *
 from .evaluators import *
 from .lms import *
+from .samplers import *
+
 
 __author__      = "Laura Balbi"
 

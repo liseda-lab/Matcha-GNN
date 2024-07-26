@@ -1,14 +1,21 @@
 import random
+from samplers import Sampler, RandomSampler
 
 class Loader:
-    def __init__(self, dataset, batch_size = 64*64, shuffle=True):
+    def __init__(self, data, batch_size = 64*64):
 
-        self.dataset = dataset
         self.batch_size = batch_size
-        self.shuffle = shuffle
-        self.indices = list(range(len(dataset)))
-        if shuffle: random.shuffle(self.indices)
+        self.data = data
+        self.indices = list(range(len(self.data)))
         self.current = 0
+        
+
+    def shuffle(self):
+        """
+        Shuffles the data
+        """
+        random.shuffle(self.indices)
+
 
     def __iter__(self):
         """
@@ -16,34 +23,35 @@ class Loader:
         """
         return self
     
+    
     def __next__(self):
         """
         Returns the next batch of data
         """
         if self.current >= len(self.indices):
             self.current = 0
-            if self.shuffle: random.shuffle(self.indices)
             raise StopIteration
         else:
             batch_indices = self.indices[self.current:self.current+self.batch_size]
             self.current += self.batch_size
-            return self.dataset[batch_indices]
+            return self.data[batch_indices]
+
 
     def __len__(self):
         """
         Returns the number of batches
         """
-        return len(self.dataset)
+        return len(self.data)
     
     def __getitem__(self, index):
         """
         Returns item at a given index
         """
-        return self.dataset[index]
+        return self.data[index]
     
     def __contains__(self, item):
         """
         Returns True if the item is in the dataset
         """
-        return item in self.dataset
+        return item in self.data
 

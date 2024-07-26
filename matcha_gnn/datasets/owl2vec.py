@@ -1,6 +1,6 @@
 import mowl
-# mowl.init_jvm("10g")
-from mowl.projection import OWL2VecStarProjector
+mowl.init_jvm("6g")
+#from mowl.projection import OWL2VecStarProjector
 
 
 class Projection:
@@ -18,12 +18,12 @@ class Projection:
 
     def owl2vec_projection(self):
 
-        projector = OWL2VecStarProjector(bidirectional_taxonomy=True, only_taxonomy=False, include_literals=True)()
+        projector = mowl.projection.OWL2VecStarProjector(bidirectional_taxonomy=True, only_taxonomy=False, include_literals=True)()
         self.graph = projector.project(self.ontology)
 
     def owl2vec_taxonomy_projection(self):
 
-        projector = OWL2VecStarProjector(bidirectional_taxonomy=True, only_taxonomy=True, include_literals=False)()
+        projector = mowl.projection.OWL2VecStarProjector(bidirectional_taxonomy=True, only_taxonomy=True, include_literals=False)()
         self.graph = projector.project(self.ontology)
 
 

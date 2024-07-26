@@ -1,5 +1,6 @@
 import torch, dgl
-import java
+#from ..import_java import *
+
 from .entity import Entity
 from .relation import Relation
 from .owl2vec import Projection
@@ -87,7 +88,7 @@ class DGLDataset(Dataset):
                 _target: target ontology in JAVA-readable OWL format
         """
 
-        adapter = java.OWLAPIAdapter()
+        adapter = import_java.OWLAPIAdapter()
         owl_manager = adapter.owl_manager
         _source = owl_manager.loadOntologyFromOntologyDocument(java.io.File(self.dir + source_ontology))
         _target = owl_manager.loadOntologyFromOntologyDocument(java.io.File(self.dir + target_ontology))
