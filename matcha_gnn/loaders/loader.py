@@ -1,5 +1,5 @@
 import random
-from samplers import Sampler, RandomSampler
+from ..samplers import Sampler, RandomSampler
 
 class Loader:
     def __init__(self, data, batch_size = 64*64):

@@ -1,5 +1,5 @@
 import mowl
-mowl.init_jvm("6g")
+#mowl.init_jvm("8g")
 #from mowl.projection import OWL2VecStarProjector
 
 

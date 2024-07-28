@@ -40,7 +40,6 @@ class Sampler:
 
     
 
-
 class RandomSampler:
     
         def __init__(self, graph : dgl.DGLGraph | dgl.DGLHeteroGraph, ratio : list = [0.75, 0.1, 0.15]):
