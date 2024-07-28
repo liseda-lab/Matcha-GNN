@@ -1,1 +1,0 @@
-# Folder works as default dir to load ontologies from
