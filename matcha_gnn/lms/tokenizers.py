@@ -134,4 +134,39 @@ class AutoTokenizer(Tokenizer):
     
     def mask_input(self, ids, mask_id):
         return super().mask_input(ids, mask_id)
+
+
+
+
+## imported models
+from transformers import M2M100Tokenizer
+class M2M100TokenizerWrapper:
+    def __init__(self, model_name):
+        self.tokenizer = M2M100Tokenizer.from_pretrained(model_name)
+        self.mask_token = self.tokenizer.mask_token
+        self.mask_id = self.tokenizer.mask_token_id
+        self.sep_token = self.tokenizer.sep_token
+        self.sep_id = self.tokenizer.sep_token_id
+        self.pad_token = self.tokenizer.pad_token
+        self.pad_id = self.tokenizer.pad_token_id
+        self.vocab_size = self.tokenizer.vocab_size
+        self.max_len = 512
+
+    def tokenize(self, text):
+        return self.tokenizer.tokenize(text)
+    
+    def convert_tokens_to_ids(self, tokens):
+        return self.tokenizer.convert_tokens_to_ids(tokens)
+    
+    def convert_ids_to_tokens(self, ids):
+        return self.tokenizer.convert_ids_to_tokens(ids)
+    
+    def load_config(self, path):
+        self.tokenizer = M2M100Tokenizer.from_pretrained(path)
+    
+    def encode_input(self, text):
+        return self.tokenizer.encode(text, return_tensors='pt')
+
+    def decode_input(self, ids):
+        return self.tokenizer.decode(ids)
     

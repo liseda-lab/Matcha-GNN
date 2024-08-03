@@ -2,7 +2,6 @@
 # JVM_PATH="/home/lbalbi/jdk-22.0.2/lib/server/libjvm.so"
 
 import torch, dgl
-import java
 from .entity import Entity
 from .relation import Relation
 from .owl2vec import Projection
@@ -88,14 +87,13 @@ class DGLDataset(Dataset):
                 _source: source ontology in JAVA-readable OWL format
                 _target: target ontology in JAVA-readable OWL format
         """
-        import mowl
-        mowl.init_jvm("10g")
+
         from mowl.owlapi.adapter import OWLAPIAdapter
 
         adapter = mowl.owlapi.OWLAPIAdapter()
         owl_manager = adapter.owl_manager
-        _source = owl_manager.loadOntologyFromOntologyDocument(java.io.File(self.dir + source_ontology))
-        _target = owl_manager.loadOntologyFromOntologyDocument(java.io.File(self.dir + target_ontology))
+        _source = owl_manager.loadOntologyFromOntologyDocument(File(self.dir + source_ontology))
+        _target = owl_manager.loadOntologyFromOntologyDocument(File(self.dir + target_ontology))
         return _source, _target
             
     def add_entities(self, entities_list):
