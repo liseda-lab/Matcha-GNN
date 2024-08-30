@@ -11,7 +11,7 @@ g = datasets.DGLDataset(
     target_ontology="../go.owl",
     heterogeneous=True)
 
-print(g.graph)
+#print(g.graph)
 
 from matcha_gnn import Sampler, Loader
 
