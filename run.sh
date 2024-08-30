@@ -18,6 +18,5 @@ pip install import-java
 pip install mowl-borg
 #pip install JPype1
 
-
 # run your program
 python Matcha-GNN/test.py

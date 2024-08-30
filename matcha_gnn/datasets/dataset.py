@@ -42,8 +42,8 @@ class Dataset:
             "graph" : self.graph,
             "labels" : self.labels,
             "splits" : self.splits,
-            "node features" : (self.node_features if self.node_features != None else None),
-            "edge features" : (self.edge_features if self.edge_features != None else None)
+            "node features" : (self.node_features if self.node_features != None else []),
+            "edge features" : (self.edge_features if self.edge_features != None else [])
             }
         torch.save(graph_dict, self.dir)
 
@@ -56,8 +56,8 @@ class Dataset:
         self.graph = graph_dict["graph"]
         self.labels = graph_dict["labels"]
         self.splits = graph_dict["splits"]
-        self.node_features = graph_dict["node features"]
-        self.edge_features = graph_dict["edge features"]
+        self.node_features = graph_dict["node features"] if graph_dict["node features"] != [] else None
+        self.edge_features = graph_dict["edge features"] if graph_dict["edge features"] != [] else None
 
 
 class DGLDataset(Dataset):
@@ -88,7 +88,7 @@ class DGLDataset(Dataset):
                 _target: target ontology in JAVA-readable OWL format
         """
 
-        from mowl.owlapi.adapter import OWLAPIAdapter
+        #from mowl.owlapi.adapter import OWLAPIAdapter
 
         adapter = mowl.owlapi.OWLAPIAdapter()
         owl_manager = adapter.owl_manager

@@ -2,12 +2,13 @@
 # -*- coding: utf-8 -*-
 # Matcha-GNN
 
-import jpype, mowl
-mowl.init_jvm("10g")
-
 import java
+
 with java:
     from java.io import File
+
+import mowl
+mowl.init_jvm("20g")
 
 from .training import Trainer, GridSearchCV
 from .gnns import *
