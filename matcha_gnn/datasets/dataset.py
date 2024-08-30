@@ -88,9 +88,9 @@ class DGLDataset(Dataset):
                 _target: target ontology in JAVA-readable OWL format
         """
 
-        #from mowl.owlapi.adapter import OWLAPIAdapter
+        from mowl.owlapi.adapter import OWLAPIAdapter
 
-        adapter = mowl.owlapi.OWLAPIAdapter()
+        adapter = OWLAPIAdapter()
         owl_manager = adapter.owl_manager
         _source = owl_manager.loadOntologyFromOntologyDocument(File(self.dir + source_ontology))
         _target = owl_manager.loadOntologyFromOntologyDocument(File(self.dir + target_ontology))
