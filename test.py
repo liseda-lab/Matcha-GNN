@@ -3,10 +3,10 @@ from datasets import load_dataset
 # Load the testing dataset
 dataset = load_dataset("krr-oxford/OntoLAMA", "doid-atomic-SI")
 
-from matcha_gnn import datasets
+from matcha_gnn import DGLDataset
 
 ## create dataset object for source and target ontologies
-g = datasets.DGLDataset(
+g = DGLDataset(
     source_ontology="../doid.owl" ,
     target_ontology="../go.owl",
     heterogeneous=True)
@@ -25,11 +25,11 @@ loader = Loader(graph)
 
 import torch
 from torch.optim.lr_scheduler import ReduceLROnPlateau
-from matcha_gnn import gnns
+from matcha_gnn import GCN
 
 
 # define model and optimizer
-model = gnns.GCN
+model = GCN
 optimizer = torch.optim.Adam(model.parameters(), lr = 0.01)
 scheduler = ReduceLROnPlateau(optimizer, factor=0.1, patience=1)
 CrossEntropy = torch.nn.CrossEntropyLoss()
