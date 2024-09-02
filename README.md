@@ -3,8 +3,7 @@ The Matcha-GNN pipeline empowers GNNs structural representation power with meani
 
 
 ## Setup and Run experiments
-Run the run.sh executable file.
-
+Either run the run_docker.sh (that creates a docker container to perform the experiments on) or the run.sh executable file to setup the environment and run the experiments.
 
 
 ## Baselines
