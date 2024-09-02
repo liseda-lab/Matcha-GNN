@@ -1,20 +1,18 @@
-FROM node:14-alpine3.16
+FROM continuumio/miniconda3:latest
 
-WORKDIR /lbalbi/matcha_gnn_outputs/
-
-RUN conda create -n matcha_gnn python=3.9 openjdk=8
-RUN eval "$(conda shell.bash hook)"
-RUN conda activate matcha_gnn
+COPY . .
 
 ENV JAVA_HOME=$JAVA_HOME:/home/lbalbi/miniconda3/envs/matcha_gnn/jre/bin/
 ENV JDK_HOME=$JDK_HOME:/home/lbalbi/miniconda3/envs/matcha_gnn/jre/lib/amd64/server/
 ENV JVM_PATH=/home/lbalbi/miniconda3/envs/matcha_gnn/jre/lib/amd64/server/libjvm.so
 
-RUN pip install torch==2.2.1 --index-url https://download.pytorch.org/whl/cu118
-RUN pip install dgl -f https://data.dgl.ai/wheels/torch-2.2/cu118/repo.html
+RUN conda create -n matcha_gnn python=3.9 openjdk=8 \
+&& eval "$(conda shell.bash hook)" \
+&& conda activate matcha_gnn \
+&& pip install torch==2.2.1 --index-url https://download.pytorch.org/whl/cu118 \
+&& pip install dgl -f https://data.dgl.ai/wheels/torch-2.2/cu118/repo.html \
+&& pip install datasets \
+&& pip install import-java \
+&& pip install mowl-borg
 
-RUN pip install datasets
-RUN pip install import-java
-RUN pip install mowl-borg
-
-CMD ["python","Matcha-GNN/test.py"]
+CMD ["python","test.py"]
