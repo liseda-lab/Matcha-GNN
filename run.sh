@@ -5,11 +5,6 @@ conda create -n matcha_gnn python=3.9 openjdk=
 eval "$(conda shell.bash hook)"
 conda activate matcha_gnn
 
-### for environment w/o openjdk=8, gets java 11 from usr/lib/jvm
-# export JAVA_HOME=$JAVA_HOME:/usr/lib/jvm/java-11-openjdk-amd64/
-# export JDK_HOME=$JDK_HOME:/usr/lib/jvm/java-11-openjdk-amd64/
-# export JVM_PATH=/usr/lib/jvm/java-11-openjdk-amd64/lib/server/libjvm.so
-
 export JAVA_HOME=$JAVA_HOME:/home/lbalbi/miniconda3/envs/matcha_gnn/jre/bin/
 export JDK_HOME=$JDK_HOME:/home/lbalbi/miniconda3/envs/matcha_gnn/jre/lib/amd64/server/
 export JVM_PATH=/home/lbalbi/miniconda3/envs/matcha_gnn/jre/lib/amd64/server/libjvm.so

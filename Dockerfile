@@ -15,4 +15,5 @@ RUN conda create -n matcha_gnn python=3.9 openjdk=8 \
 && pip install import-java \
 && pip install mowl-borg
 
-CMD ["python","test.py"]
+CMD ["python","-c","print('helloworld!')"] \
+&& ["python","test.py"]
