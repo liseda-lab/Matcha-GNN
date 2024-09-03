@@ -1,6 +1,6 @@
 FROM continuumio/miniconda3:latest
 
-WORKDIR /home/lbalbi/
+WORKDIR /..
 
 COPY . .
 
@@ -13,4 +13,4 @@ RUN conda create -n matcha_gnn python=3.9 openjdk=8 \
 && pip install import-java \
 && pip install mowl-borg
 
-CMD ["python","Matcha-GNN/test.py"]
+CMD ["python3","Matcha-GNN/test.py"]
