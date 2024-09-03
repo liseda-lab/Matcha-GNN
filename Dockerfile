@@ -1,10 +1,8 @@
 FROM continuumio/miniconda3:latest
 
-COPY ../* .
+WORKDIR /home/lbalbi/
 
-# ENV JAVA_HOME=$JAVA_HOME:/home/lbalbi/miniconda3/envs/matcha_gnn/jre/bin/
-# ENV JDK_HOME=$JDK_HOME:/home/lbalbi/miniconda3/envs/matcha_gnn/jre/lib/amd64/server/
-# ENV JVM_PATH=/home/lbalbi/miniconda3/envs/matcha_gnn/jre/lib/amd64/server/libjvm.so
+COPY . .
 
 RUN conda create -n matcha_gnn python=3.9 openjdk=8 \
 && eval "$(conda shell.bash hook)" \
