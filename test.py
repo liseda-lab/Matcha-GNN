@@ -1,7 +1,7 @@
 from datasets import load_dataset
 
 # Load the testing dataset
-dataset = load_dataset("krr-oxford/OntoLAMA", "doid-atomic-SI")
+dataset = load_dataset("krr-oxford/OntoLAMA", "doid-atomic-SI", trust_remote_code=True)
 
 from matcha_gnn import DGLDataset
 
