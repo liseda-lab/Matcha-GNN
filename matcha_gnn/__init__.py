@@ -2,14 +2,9 @@
 # -*- coding: utf-8 -*-
 # Matcha-GNN
 
-
 import mowl
 mowl.init_jvm("20g")
 
-import java
-
-with java:
-    from java.io import File
 
 from .training import Trainer, GridSearchCV
 from .gnns import *

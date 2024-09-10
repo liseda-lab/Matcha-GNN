@@ -1,7 +1,8 @@
-# JAVA_HOME="/home/lbalbi/jdk-22.0.2/bin/java"
-# JVM_PATH="/home/lbalbi/jdk-22.0.2/lib/server/libjvm.so"
-
 import torch, dgl
+
+from java.io import File
+print(File("../doid.owl").toURI().toURL())
+
 from .entity import Entity
 from .relation import Relation
 from .owl2vec import Projection
@@ -92,6 +93,7 @@ class DGLDataset(Dataset):
 
         adapter = OWLAPIAdapter()
         owl_manager = adapter.owl_manager
+
         _source = owl_manager.loadOntologyFromOntologyDocument(File(self.dir + source_ontology))
         _target = owl_manager.loadOntologyFromOntologyDocument(File(self.dir + target_ontology))
         return _source, _target
