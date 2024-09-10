@@ -1,7 +1,9 @@
 import numpy, torch
+from typing import Union
 
 class Evaluator:
-    def __init__(self, main_metric: str, secondary_metrics: list | str):
+    def __init__(self, main_metric: str, secondary_metrics: Union[list,str]):
+        #__init__(self, main_metric: str, secondary_metrics: list | str):
 
         self.main_metric = main_metric
         self.secondary_metrics = secondary_metrics
