@@ -1,7 +1,6 @@
 import torch, dgl
-
 from java.io import File
-print(File("../doid.owl").toURI().toURL())
+from typing import Union
 
 from .entity import Entity
 from .relation import Relation
@@ -62,15 +61,18 @@ class Dataset:
 
 
 class DGLDataset(Dataset):
-    def __init__(self, source_ontology, target_ontology,
-                 name= "dataset", 
-                 save_dir= "",load_data= False, 
-                 heterogeneous= True):
+    def __init__(self, source_ontology: str, target_ontology: str,
+                 name: str = "dataset", 
+                 save_dir: str = "",load_data: bool = False, 
+                 heterogeneous: bool = True,
+                 projected: bool = True,
+                 ):
         
         super().__init__(name="dataset", save_dir="", load_data=False)
 
         self.heterogeneous = heterogeneous
-        self._source, self._target = self.load_ontologies(source_ontology, target_ontology)
+        if projected: self._source, self._target = self.load_ontologies_mowl(source_ontology, target_ontology)
+        else: self._source, self._target = self.load_ontologies(source_ontology, target_ontology)
         self.projection_source = Projection(self._source)
         self.projection_target = Projection(self._target)
         self.graph = None
@@ -78,7 +80,25 @@ class DGLDataset(Dataset):
         self.val_idx = None
         self.test_idx = None
 
+
     def load_ontologies(self, source_ontology, target_ontology):
+        """
+            Loads the source and target ontologies from files
+            Args:
+                source_ontology: source ontology file
+                target_ontology: target ontology file
+            Returns:
+                _source: source ontology
+                _target: target ontology
+        """
+        from owlready2 import get_ontology
+
+        _source = get_ontology(self.dir + source_ontology).load()
+        _target = get_ontology(self.dir + target_ontology).load()
+        return _source, _target
+
+
+    def load_ontologies_mowl(self, source_ontology, target_ontology):
         """
             Loads the source and target ontologies from files and onto JAVA processable OWL format
             Args:
@@ -97,7 +117,8 @@ class DGLDataset(Dataset):
         _source = owl_manager.loadOntologyFromOntologyDocument(File(self.dir + source_ontology))
         _target = owl_manager.loadOntologyFromOntologyDocument(File(self.dir + target_ontology))
         return _source, _target
-            
+
+
     def add_entities(self, entities_list):
         """
             Adds entities to the graph
