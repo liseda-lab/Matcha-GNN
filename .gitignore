@@ -6,3 +6,4 @@ matcha_gnn/lms/__pycache__/*
 matcha_gnn/loaders/__pycache__/*
 matcha_gnn/samplers/__pycache__/*
 debug_logger.py
+run.sh
