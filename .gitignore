@@ -1,10 +1,8 @@
-matcha_gnn/_pycache_/*
+matcha_gnn/__pycache__/*
 matcha_gnn/datasets/__pycache__/*
 matcha_gnn/evaluators/__pycache__/*
 matcha_gnn/gnns/__pycache__/*
 matcha_gnn/lms/__pycache__/*
 matcha_gnn/loaders/__pycache__/*
 matcha_gnn/samplers/__pycache__/*
-matcha_gnn/__pycache__/__init__.cpython-39.pyc
 debug_logger.py
-out.txt

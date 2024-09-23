@@ -1,7 +1,10 @@
+from debug_logger import write_to_file
 from datasets import load_dataset
 
+write_to_file("starting dataset loading ... ")
 # Load the testing dataset
 dataset = load_dataset("krr-oxford/OntoLAMA", "doid-atomic-SI", trust_remote_code=True)
+write_to_file("done loading dataset ... ")
 
 from matcha_gnn import DGLDataset
 
@@ -11,7 +14,7 @@ g = DGLDataset(
     target_ontology="../go.owl",
     heterogeneous=True)
 
-#print(g.graph)
+write_to_file("imported matcha dataset ... ")
 
 from matcha_gnn import Sampler, Loader
 
