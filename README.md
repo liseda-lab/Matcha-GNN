@@ -13,4 +13,4 @@ Test cases:
 - full baseline (w/ training)
 
 ## Implementations/Future Work
-- (future work) prepare matcha pipeline receival
+- (future work) prepare matcha framework receival
