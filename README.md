@@ -1,5 +1,5 @@
 # Matcha-GNN
-The Matcha-GNN pipeline empowers GNNs structural representation power with meaningful semantic embeddings extracted from ontological information.
+The Matcha-GNN framework empowers GNNs structural representation power with meaningful semantic embeddings extracted from ontological information.
 
 
 ## Setup and Run experiments
